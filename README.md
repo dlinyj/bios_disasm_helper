@@ -17,4 +17,22 @@ Usage: INTDUMP <interrupt_number> [filename]
 nasm intvect.asm -fbin -o intvect.com
 ```
 
-Получаются COM-файлы, которые можно запустить в любом DOS.
+Получаются COM-файлы, которые можно запустить в любом DOS. Скрин ниже из dosbox.
+
+
+![](img/0001.png)
+
+- mbr_int.asm - программа аналогичная intvect, однако позволяет увидеть не подменённые вектора DOS. Загружается в бут сектор дискеты. Для этого после сборки выполнить:
+
+```sh
+nasm mbr_int.asm -f bin -o mbr_int.bin
+sudo dd if=mbr_int.bin of=/dev/sdh
+```
+
+Скрин ниже из qemu. Проверялось командой:
+
+```sh
+qemu-system-i386 mbr_int.bin
+```
+
+![](img/0002.png)
